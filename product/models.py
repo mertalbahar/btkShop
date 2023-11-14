@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.utils.safestring import mark_safe
 
 
 class Category(models.Model):
@@ -67,3 +68,26 @@ class Product(models.Model):
         return sef.category
     
     category_tag.short_description = 'Kategori'
+    
+    def image_icon(self):
+        return mark_safe('<img src="{}" height="50" />'.format(self.image.url))
+    
+    image_icon.short_description = 'Resim'
+    
+    
+class ProductImages(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50, verbose_name='Başlık')
+    image = models.ImageField(blank=True, upload_to='images/', verbose_name='Resim')
+    
+    class Meta:
+        verbose_name = 'Resim'
+        verbose_name_plural = 'Resimler'
+
+    def __str__(self):
+        return self.title
+    
+    def image_icon(self):
+        return mark_safe('<img src="{}" height="50" />'.format(self.image.url))
+    
+    image_icon.short_description = 'Resim'
