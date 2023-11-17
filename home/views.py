@@ -1,70 +1,17 @@
 from django.shortcuts import render
-from .models import ShopSetting
 
 
 def index(request):
-    setting = ShopSetting.objects.get(pk=1)
-    page = request.get_full_path()
-    page = page[1:]
-    
-    if page == '':
-        page = 'Anasayfa'
-    else:
-        page
-    
-    context = {
-        'page': page,
-        'setting': setting
-    }
-    return render(request, 'home/index.html', context)
+    return render(request, 'home/index.html')
 
 
 def contact(request):
-    setting = ShopSetting.objects.get(pk=1)
-    page = request.get_full_path()
-    page = page[1:]
-    
-    if page == '':
-        page = 'Anasayfa'
-    else:
-        page
-    
-    context = {
-        'page': page,
-        'setting': setting
-    }
-    return render(request, 'home/contact.html', context)
+    return render(request, 'home/contact.html')
 
 
 def about(request):
-    setting = ShopSetting.objects.get(pk=1)
-    page = request.get_full_path()
-    page = page[1:]
-    
-    if page == '':
-        page = 'Anasayfa'
-    else:
-        page
-    
-    context = {
-        'page': page,
-        'setting': setting
-    }
-    return render(request, 'home/about.html', context)
+    return render(request, 'home/about.html')
 
 
 def reference(request):
-    setting = ShopSetting.objects.get(pk=1)
-    page = request.get_full_path()
-    page = page[1:]
-    
-    if page == '':
-        page = 'Anasayfa'
-    else:
-        page
-    
-    context = {
-        'page': page,
-        'setting': setting
-    }
-    return render(request, 'home/reference.html', context)
+    return render(request, 'home/reference.html')

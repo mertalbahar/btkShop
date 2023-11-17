@@ -1,74 +1,40 @@
 from django.shortcuts import render
-from home.models import ShopSetting
+from .models import Product, ProductImages
 
 
-def index(request):
-    setting = ShopSetting.objects.get(pk=1)
-    page = request.get_full_path()
-    page = page.split('/')
-    page = page[1]
-    
-    if page == 'product':
-        page = 'Ürünler'
-    else:
-        page
+def index(request):       
+    products = Product.objects.all()
     
     context = {
-        'page': page,
-        'setting': setting
+        'products': products
     }
     return render(request, 'product/index.html', context)
 
 
-def detail(request):
-    setting = ShopSetting.objects.get(pk=1)
-    page = request.get_full_path()
-    page = page.split('/')
-    page = page[2]
-    
-    if page == 'product':
-        page = 'Ürünler'
-    else:
-        page
+def products_by_category(request, id):
+    products = Product.objects.filter(category__id = id)
     
     context = {
-        'page': page,
-        'setting': setting
+        'products': products
+    }
+    
+    return render(request, 'product/index.html', context)
+
+
+def detail(request, id):
+    product = Product.objects.get(pk=id)
+    product_images = ProductImages.objects.filter(product = product)
+    
+    context = {
+        'product': product,
+        'images': product_images
     }
     return render(request, 'product/detail.html', context)
 
 
 def cart(request):
-    setting = ShopSetting.objects.get(pk=1)
-    page = request.get_full_path()
-    page = page.split('/')
-    page = page[2]
-    
-    if page == 'product':
-        page = 'Ürünler'
-    else:
-        page
-    
-    context = {
-        'page': page,
-        'setting': setting
-    }
-    return render(request, 'product/cart.html', context)
+    return render(request, 'product/cart.html')
 
 
 def checkout(request):
-    setting = ShopSetting.objects.get(pk=1)
-    page = request.get_full_path()
-    page = page.split('/')
-    page = page[2]
-    
-    if page == 'product':
-        page = 'Ürünler'
-    else:
-        page
-    
-    context = {
-        'page': page,
-        'setting': setting
-    }
-    return render(request, 'product/checkout.html', context)
+    return render(request, 'product/checkout.html')
